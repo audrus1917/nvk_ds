@@ -38,13 +38,12 @@ class GBQQuery(BaseQuery):
                 query_parameters=self._x__params
             )
         query_sql = str(self._x__query).format(table_name=self._x__table_name) \
-            if self._x__table_name else self._x__table_name        
-        print(query_sql)
+            if self._x__table_name else self._x__query     
         self._job = self._x__resource._resource.query(
             query_sql, 
             **query_kwargs    
         )
-        self._result = [row.values() for row in self._job]
+        self._result = [dict(row.items()) for row in self._job]
         return self
 
     def __iter__(self):
