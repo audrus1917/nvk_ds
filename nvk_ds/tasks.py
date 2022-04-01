@@ -24,11 +24,19 @@ from .utils import load_query_from_file, json_serialize
 
 logger = prefect.context.get("logger")
 
+
+@task
+def show_list(items: List[Any]):
+    for idx, item in enumerate(items, 1):
+        logger.debug("{0}th - {1}".format(idx, item))
+
+
 @task
 def is_not_empty(x: List[Any]) -> bool:
     if isinstance(x, (list, tuple)):
         return len(x) > 0
     return False
+
 
 class DataTask(Task):
     """Task for data processing."""
