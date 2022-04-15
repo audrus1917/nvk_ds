@@ -27,9 +27,9 @@ class GoogleSheetQuery(BaseQuery):
         )
 
     def execute(self):
-        if not self._x__resource.opened:
-            self._x__resource.open()
-        q = self._x__resource._resource.spreadsheets().values().get(
+        if not self._x__ds.opened:
+            self._x__ds.open()
+        q = self._x__ds._resource.spreadsheets().values().get(
             spreadsheetId=self._x__spreadsheet_id, 
             range=self._x__range
         ).execute()

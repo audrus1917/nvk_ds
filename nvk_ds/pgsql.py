@@ -26,9 +26,9 @@ class PgSQLQuery(BaseQuery):
         return c
 
     def execute(self):
-        if not self._x__resource.opened:
-            self._x__resource.open()
-        q = self._x__resource._connection.cursor(
+        if not self._x__ds.opened:
+            self._x__ds.open()
+        q = self._x__ds._resource.cursor(
             cursor_factory=psycopg2.extras.DictCursor
         )
 
@@ -58,17 +58,17 @@ class PgSQLResource(BaseResource):
     query_cls = PgSQLQuery
 
     def open(self):
-        self._connection = psycopg2.connect(self._config)
+        self._resource = psycopg2.connect(self._config)
 
     def close(self):
         if self.opened:
-            self._connection.close()
+            self._resource.close()
 
     def get_cursor(self):
-        return self._connection.cursor()
+        return self._resource.cursor()
 
     def commit(self):
-        self._connection.commit()
+        self._resource.commit()
 
     def rollback(self):
-        self._connection.rollback()
+        self._resource.rollback()

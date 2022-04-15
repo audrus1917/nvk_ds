@@ -30,8 +30,8 @@ class GBQQuery(BaseQuery):
         return c
 
     def execute(self):
-        if not self._x__resource.opened:
-            self._x__resource.open()
+        if not self._x__ds.opened:
+            self._x__ds.open()
         query_kwargs = {}
         if self._x__params:
             query_kwargs['job_config'] = bigquery.QueryJobConfig(
@@ -39,7 +39,7 @@ class GBQQuery(BaseQuery):
             )
         query_sql = str(self._x__query).format(table_name=self._x__table_name) \
             if self._x__table_name else self._x__query     
-        self._job = self._x__resource._resource.query(
+        self._job = self._x__ds._resource.query(
             query_sql, 
             **query_kwargs    
         )

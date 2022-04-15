@@ -66,8 +66,8 @@ class RestAPIQuery(BaseQuery):
 
     @property
     def base_url(self):
-        if self._x__resource and hasattr(self._x__resource, "base_url"):
-            return self._x__resource.base_url
+        if self._x__ds and hasattr(self._x__ds, "base_url"):
+            return self._x__ds.base_url
 
     def build_url(self):
         return urljoin(self.base_url, self._x__url) \
@@ -86,8 +86,8 @@ class RestAPIQuery(BaseQuery):
     def execute(self):
         """Executes the query and returns data."""
         cls = type(self)
-        if not self._x__resource.opened:
-            self._x__resource.open()        
+        if not self._x__ds.opened:
+            self._x__ds.open()        
         q_attrs = {}
         if self._x__headers:
             q_attrs["headers"] = self._x__headers
@@ -98,7 +98,7 @@ class RestAPIQuery(BaseQuery):
         if self._x__json:
             q_attrs["json"] = self._x__json
         request_meth = getattr(
-            self._x__resource._resource, 
+            self._x__ds._resource, 
             self._x__http_method
         )
         if request_meth and callable(request_meth):

@@ -42,7 +42,7 @@ class BaseQuery(ABC):
     x = ProxyDescriptor()
 
     def __init__(self, **kwargs):
-        self._x__resource = None
+        self._x__ds = None
         self._kwargs = kwargs
 
     def __getattr__(self, name: str) -> Any:
@@ -55,7 +55,7 @@ class BaseQuery(ABC):
         """Return the cloned instance."""
 
         c = self.__class__()
-        c._x__resource = self._x__resource
+        c._x__ds = self._x__ds
         return c
 
     @abstractmethod
@@ -76,13 +76,13 @@ class BaseResource(ABC):
     ):
         self._config = config
         self._kwargs = kwargs
-        self._connection = None
+        self._resource = None
         self.readonly = readonly
 
     @property
     def opened(self):
         """Return if resource has been  opened."""
-        return self._connection is not None
+        return self._resource is not None
 
     @abstractmethod
     def open(self):

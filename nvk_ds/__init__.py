@@ -1,1 +1,3 @@
-"""The dataresources data extracting package."""
+"""
+The ``Prefect`` small datasources data package.
+"""

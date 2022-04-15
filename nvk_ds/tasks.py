@@ -182,9 +182,11 @@ class FetchNoneMixin:
 
 
 class CreateSessionTask(Task):
-    """The task for session data."""
+    """
+    Creates session data.
+    """
 
-    def run(self):
+    def run(self) -> DotDict:
         session = DotDict(
             session_id=str(uuid.uuid4()),
             session_date=datetime.utcnow()

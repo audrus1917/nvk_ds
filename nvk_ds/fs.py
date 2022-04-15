@@ -19,7 +19,7 @@ class FSQuery(BaseQuery):
         return c
 
     def execute(self):
-        ds_path = Path(self._x__resource._config)
+        ds_path = Path(self._x__ds._config)
         ds_files = []
         if ds_path.is_dir():
             for path_object in ds_path.glob("**/*"):
